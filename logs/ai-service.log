@@ -1,0 +1,9 @@
+INFO:__main__:Setting up Ollama fallback...
+INFO:httpx:HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
+ERROR:__main__:Failed to setup model: 'dict' object has no attribute 'models'
+ERROR:__main__:Failed to setup Ollama fallback: 'dict' object has no attribute 'models'
+Traceback (most recent call last):
+  File "/Users/kodecreer/Documents/HomeAssign/AIService/main.py", line 60, in <module>
+    available_models = [model.model for model in models.models]
+                                                 ^^^^^^^^^^^^^
+AttributeError: 'dict' object has no attribute 'models'

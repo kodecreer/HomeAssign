@@ -1,0 +1,56 @@
+2025-09-17 15:38:24,967 - __main__ - INFO - Starting AI Service...
+2025-09-17 15:38:24,968 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 15:38:25,209 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 15:38:25,210 - __main__ - INFO - AI Service started successfully
+2025-09-17 15:40:13,218 - __main__ - INFO - Shutting down AI Service...
+2025-09-17 15:40:15,363 - __main__ - INFO - Starting AI Service...
+2025-09-17 15:40:15,365 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 15:40:15,605 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 15:40:15,605 - __main__ - INFO - AI Service started successfully
+2025-09-17 15:43:36,442 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 15:45:19,032 - __main__ - INFO - Shutting down AI Service...
+2025-09-17 15:45:21,212 - __main__ - INFO - Starting AI Service...
+2025-09-17 15:45:21,212 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 15:45:21,497 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 15:45:21,497 - __main__ - INFO - AI Service started successfully
+2025-09-17 15:45:26,228 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 17:58:39,499 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 17:59:04,434 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 18:01:28,376 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 18:01:34,488 - __main__ - INFO - Starting AI Service...
+2025-09-17 18:01:34,489 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 18:01:34,713 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 18:01:34,715 - __main__ - INFO - AI Service started successfully
+2025-09-17 18:01:34,716 - __main__ - INFO - Shutting down AI Service...
+2025-09-17 18:01:43,910 - __main__ - INFO - Shutting down AI Service...
+2025-09-17 18:01:47,920 - __main__ - INFO - Starting AI Service...
+2025-09-17 18:01:47,920 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 18:01:48,113 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 18:01:48,113 - __main__ - INFO - AI Service started successfully
+2025-09-17 18:01:55,665 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 18:02:54,386 - __main__ - INFO - Starting AI Service...
+2025-09-17 18:02:54,387 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 18:02:54,656 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 18:02:54,657 - __main__ - INFO - AI Service started successfully
+2025-09-17 18:03:01,193 - __main__ - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 18:03:01,445 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 18:03:01,457 - __main__ - INFO - Full response length: 0
+2025-09-17 18:03:01,461 - __main__ - INFO - Full response preview: ...
+2025-09-17 18:08:21,897 - __main__ - INFO - Starting AI Service...
+2025-09-17 18:08:21,898 - __main__ - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 18:08:22,199 - __main__ - INFO - Ollama backend initialized with model: deepseek-r1:1.5b
+2025-09-17 18:08:22,199 - __main__ - INFO - AI Service started successfully
+2025-09-17 18:08:28,443 - __main__ - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 18:08:51,486 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 18:09:29,505 - __main__ - INFO - Full response length: 2282
+2025-09-17 18:09:29,506 - __main__ - INFO - Full response preview: <think>
+Okay, so I need to analyze the product page for UI/UX conversion optimization. Let me start by looking at what's given.
+
+The URL is Socolachocolates.com/products/assorted-chocolate-truffle-box...
+2025-09-17 18:09:48,087 - __main__ - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 18:09:48,318 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 18:10:52,501 - __main__ - INFO - Full response length: 2696
+2025-09-17 18:10:52,501 - __main__ - INFO - Full response preview: <think>
+Okay, so I need to analyze this product page for UI/UX optimization. Let me start by looking at the content provided.
+
+The URL is Socolachocolates.com/products/assorted-chocolate-truffle-box. ...
