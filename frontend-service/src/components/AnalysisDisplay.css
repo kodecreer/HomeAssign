@@ -151,3 +151,62 @@
   white-space: pre-wrap;
   word-wrap: break-word;
 }
+
+.formatted-text {
+  color: #333;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.formatted-text p {
+  margin: 0.5rem 0;
+}
+
+.formatted-text p:first-child {
+  margin-top: 0;
+}
+
+.formatted-text p:last-child {
+  margin-bottom: 0;
+}
+
+.formatted-text strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.formatted-text em {
+  font-style: italic;
+  color: #34495e;
+}
+
+.inline-code {
+  background-color: #f1f2f6;
+  color: #e74c3c;
+  padding: 0.2rem 0.4rem;
+  border-radius: 3px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85em;
+  border: 1px solid #ddd;
+}
+
+/* Also make sure bold text in lists is properly styled */
+.strength-item strong,
+.weakness-item strong,
+.recommendation-item strong {
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+/* Sentiment badge colors */
+.sentiment-positive {
+  background-color: #28a745;
+}
+
+.sentiment-negative {
+  background-color: #dc3545;
+}
+
+.sentiment-neutral {
+  background-color: #6c757d;
+}
