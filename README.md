@@ -2,6 +2,49 @@
 
 A microservices-based tool that analyzes product pages for UI/UX strengths and weaknesses using AI to improve conversion rates.
 
+## Quick Setup
+
+To run the application:
+
+1. Create a virtual environment called `venv` in root directory
+2. Install dependencies listed in each service's requirements
+3. Install Ollama and Gemma3:4b: `ollama pull gemma3:4b` after installing Ollama
+4. Run the script `start-services.sh` - it should be working
+
+**Note:** Dockerfiles are available for each service if that's more convenient.
+
+## Development Approach
+
+My main approach was microservice architecture. The primary reason is that when building an AI service, you usually don't want the main server to handle inference since inference servers are expensive to scale. This decoupling allows scaling any part on demand according to traffic, helping cut costs while keeping things simple and not fighting tech stacks at what they do best.
+
+### Development Process
+
+I like to "vibe code" and didn't see any rules against it. The process was:
+
+1. **Technical Spec**: Created a comprehensive technical specification outlining every engineering decision - from tech stack choices to problem-solving approaches
+2. **AI-Assisted Development**: Let Claude Code implement the initial structure based on the spec
+3. **Documentation**: Created extensive documentation and onboarding materials for human readability
+4. **Iterative Development**: Filled in TODOs and had Claude Code complete specific code snippets
+5. **Screenshot Feature**: Added screenshot capability since UI/UX analysis is more visual than just text ordering (implemented on backend to avoid user security concerns)
+
+### Production Considerations
+
+While this is a prototype with some shortcuts (like the incomplete API key implementation), for production I would:
+
+- **Security**: Implement robust API key management to prevent AI inference abuse
+- **Anti-Bot Protection**: Use Cloudflare anti-bot to protect against competitors
+- **Web Scraping**: Heavy use of caching and services like BrightData to handle scraping challenges
+- **Batch Processing**: Implement batch processing in the microservice before going live
+- **Code Review**: Thorough, heavily scrutinized code reviews to maintain quality
+- **Branding**: Professional CSS, website titles, and icons aligned with service branding
+- **AI Model**: Use more powerful multi-modal AI for production
+
+### Technology Choices
+
+- **Microservice Architecture**: Super scalable foundation
+- **TypeScript**: Easy to scale, fast enough for most projects, static type checking prevents bugs as the project expands
+- **Ollama**: Chosen specifically because it wraps both llama.cpp (consumer devices) and vLLM (batch serving in production) - portable and robust across both services
+
 ## Architecture
 
 The system consists of three decoupled services:
