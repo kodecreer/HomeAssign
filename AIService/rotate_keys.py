@@ -1,4 +1,13 @@
 #!/usr/bin/env python3
+"""
+API Key Rotation Script for Product Page Reviewer
+
+This script rotates API keys for secure communication between services.
+
+Author: Kode Creer <kode.creer@gmail.com>
+License: All rights reserved - Unlicensed
+"""
+
 import os
 import secrets
 import string

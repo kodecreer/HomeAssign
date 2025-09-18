@@ -8,7 +8,7 @@
     "start": "node dist/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "Kode Creer",
+  "author": "Kode Creer <kode.creer@gmail.com>",
   "license": "UNLICENSED",
   "description": "Product Page Reviewer - Main TypeScript Express Service",
   "dependencies": {

@@ -250,3 +250,15 @@ python scripts/rotate_api_keys.py
 2. Implement load balancing
 3. Add database for result caching
 4. Set up monitoring and logging
+
+## Author
+
+**Kode Creer** <kode.creer@gmail.com>
+
+## License
+
+This project is unlicensed - all rights reserved.
+
+Copyright © 2024-2025 Kode Creer. All rights reserved.
+
+No part of this software may be reproduced, distributed, or transmitted in any form or by any means without the prior written permission of the author.
