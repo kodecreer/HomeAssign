@@ -25,9 +25,11 @@ export class AIClient {
   }
 
   async analyzeContent(content: string, url: string): Promise<AnalysisResult> {
+    //TODO Adjust this to take in the stream
+    //TODO and restream it to the frontend.
     try {
       const response = await axios.post(
-        `${this.baseUrl}/analyze`,
+        `${this.baseUrl}/analyze/stream`,
         {
           content,
           url
