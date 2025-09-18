@@ -8,13 +8,26 @@ export interface ScrapedContent {
 }
 
 export interface AnalysisResult {
-  summary: string;
-  keyPoints: string[];
-  sentiment: 'positive' | 'negative' | 'neutral';
-  categories: string[];
-  metadata: {
-    wordCount: number;
-    readingTime: number;
-    language: string;
+  analysis: string;
+  url: string;
+  strengths: string[];
+  weaknesses: string[];
+  recommendations: string[];
+  keyPoints?: string[];
+  sentiment?: 'positive' | 'negative' | 'neutral';
+  categories?: string[];
+  metadata?: {
+    title?: string;
+    imageCount?: number;
+    linkCount?: number;
+    contentLength?: number;
+    scrapedAt?: string;
   };
+}
+
+export interface StreamChunk {
+  type: 'status' | 'partial' | 'complete' | 'error' | 'scraped' | 'metadata' | 'done';
+  content?: string;
+  message?: string;
+  metadata?: any;
 }

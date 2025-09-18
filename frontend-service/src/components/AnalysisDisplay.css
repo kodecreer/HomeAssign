@@ -86,3 +86,68 @@
 .metadata-item strong {
   color: #495057;
 }
+
+/* New styles for structured analysis */
+.analysis-url {
+  margin-bottom: 1.5rem;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.analysis-url a {
+  color: #007bff;
+  text-decoration: none;
+  word-break: break-all;
+}
+
+.analysis-url a:hover {
+  text-decoration: underline;
+}
+
+.strengths-list,
+.weaknesses-list,
+.recommendations-list {
+  margin: 0;
+  padding-left: 1.5rem;
+  list-style: none;
+}
+
+.strength-item,
+.weakness-item,
+.recommendation-item {
+  margin-bottom: 0.75rem;
+  line-height: 1.5;
+  color: #333;
+  padding: 0.5rem 0;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+.strength-item:last-child,
+.weakness-item:last-child,
+.recommendation-item:last-child {
+  border-bottom: none;
+}
+
+.empty-list {
+  color: #6c757d;
+  font-style: italic;
+  margin: 0.5rem 0;
+}
+
+.full-analysis {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 1rem;
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.full-analysis pre {
+  margin: 0;
+  color: #333;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 0.85rem;
+  line-height: 1.4;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}

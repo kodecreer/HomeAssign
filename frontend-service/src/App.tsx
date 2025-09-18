@@ -1,48 +1,44 @@
 import React, { useState } from 'react';
 import UrlInput from './components/UrlInput';
-import ScrapedContentDisplay from './components/ScrapedContentDisplay';
 import AnalysisDisplay from './components/AnalysisDisplay';
 import LoadingSpinner from './components/LoadingSpinner';
 import { ApiService } from './services/api';
-import { ScrapedContent, AnalysisResult } from './types/scraper';
+import type { AnalysisResult, StreamChunk } from './types/scraper';
 import './App.css';
 
 function App() {
-  const [scrapedContent, setScrapedContent] = useState<ScrapedContent | null>(null);
   const [analysisResult, setAnalysisResult] = useState<AnalysisResult | null>(null);
   const [loading, setLoading] = useState(false);
-  const [analyzing, setAnalyzing] = useState(false);
+  const [streamingMessages, setStreamingMessages] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
 
-  const handleScrapeUrl = async (url: string) => {
+  const handleAnalyzeUrl = async (url: string) => {
     setLoading(true);
     setError(null);
-    setScrapedContent(null);
     setAnalysisResult(null);
+    setStreamingMessages([]);
 
     try {
-      const content = await ApiService.scrapeUrl(url);
-      setScrapedContent(content);
+      const result = await ApiService.analyzeUrlStream(url, (chunk: StreamChunk) => {
+        // Handle real-time streaming updates
+        if (chunk.type === 'status' && chunk.message) {
+          setStreamingMessages(prev => [...prev, `📡 ${chunk.message}`]);
+        } else if (chunk.type === 'scraped' && chunk.content) {
+          setStreamingMessages(prev => [...prev, `📄 Content scraped (${chunk.content.length} characters)`]);
+        } else if (chunk.type === 'partial' && chunk.content) {
+          setStreamingMessages(prev => [...prev, `🤖 AI generating analysis...`]);
+        } else if (chunk.type === 'metadata' && chunk.metadata) {
+          setStreamingMessages(prev => [...prev, `📊 Analysis complete`]);
+        }
+      });
+      
+      setAnalysisResult(result);
+      setStreamingMessages(prev => [...prev, `✅ Analysis completed successfully!`]);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to scrape URL');
+      setError(err instanceof Error ? err.message : 'Failed to analyze URL');
+      setStreamingMessages(prev => [...prev, `❌ Error: ${err instanceof Error ? err.message : 'Unknown error'}`]);
     } finally {
       setLoading(false);
-    }
-  };
-
-  const handleAnalyzeContent = async () => {
-    if (!scrapedContent) return;
-
-    setAnalyzing(true);
-    setError(null);
-
-    try {
-      const result = await ApiService.analyzeContent(scrapedContent);
-      setAnalysisResult(result);
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to analyze content');
-    } finally {
-      setAnalyzing(false);
     }
   };
 
@@ -50,11 +46,11 @@ function App() {
     <div className="App">
       <header className="App-header">
         <h1>🔍 Product Page Reviewer</h1>
-        <p>Analyze any webpage with AI-powered insights</p>
+        <p>Analyze any webpage with AI-powered insights in real-time</p>
       </header>
 
       <main className="App-main">
-        <UrlInput onSubmit={handleScrapeUrl} loading={loading} />
+        <UrlInput onSubmit={handleAnalyzeUrl} loading={loading} />
         
         {error && (
           <div className="error-message">
@@ -62,17 +58,18 @@ function App() {
           </div>
         )}
 
-        {loading && <LoadingSpinner message="Scraping webpage..." />}
-
-        {scrapedContent && (
-          <ScrapedContentDisplay 
-            content={scrapedContent} 
-            onAnalyze={handleAnalyzeContent}
-            analyzing={analyzing}
-          />
+        {loading && (
+          <div className="streaming-container">
+            <LoadingSpinner message="Analyzing webpage..." />
+            <div className="streaming-messages">
+              {streamingMessages.map((message, index) => (
+                <div key={index} className="streaming-message">
+                  {message}
+                </div>
+              ))}
+            </div>
+          </div>
         )}
-
-        {analyzing && <LoadingSpinner message="Analyzing content with AI..." />}
 
         {analysisResult && <AnalysisDisplay result={analysisResult} />}
       </main>
