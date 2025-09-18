@@ -13,37 +13,8 @@ To run the application:
 
 **Note:** Dockerfiles are available for each service if that's more convenient.
 
-## Development Approach
-
-My main approach was microservice architecture. The primary reason is that when building an AI service, you usually don't want the main server to handle inference since inference servers are expensive to scale. This decoupling allows scaling any part on demand according to traffic, helping cut costs while keeping things simple and not fighting tech stacks at what they do best.
-
-### Development Process
-
-I like to "vibe code" and didn't see any rules against it. The process was:
-
-1. **Technical Spec**: Created a comprehensive technical specification outlining every engineering decision - from tech stack choices to problem-solving approaches
-2. **AI-Assisted Development**: Let Claude Code implement the initial structure based on the spec
-3. **Documentation**: Created extensive documentation and onboarding materials for human readability
-4. **Iterative Development**: Filled in TODOs and had Claude Code complete specific code snippets
-5. **Screenshot Feature**: Added screenshot capability since UI/UX analysis is more visual than just text ordering (implemented on backend to avoid user security concerns)
-
-### Production Considerations
-
-While this is a prototype with some shortcuts (like the incomplete API key implementation), for production I would:
-
-- **Security**: Implement robust API key management to prevent AI inference abuse
-- **Anti-Bot Protection**: Use Cloudflare anti-bot to protect against competitors
-- **Web Scraping**: Heavy use of caching and services like BrightData to handle scraping challenges
-- **Batch Processing**: Implement batch processing in the microservice before going live
-- **Code Review**: Thorough, heavily scrutinized code reviews to maintain quality
-- **Branding**: Professional CSS, website titles, and icons aligned with service branding
-- **AI Model**: Use more powerful multi-modal AI for production
-
-### Technology Choices
-
-- **Microservice Architecture**: Super scalable foundation
-- **TypeScript**: Easy to scale, fast enough for most projects, static type checking prevents bugs as the project expands
-- **Ollama**: Chosen specifically because it wraps both llama.cpp (consumer devices) and vLLM (batch serving in production) - portable and robust across both services
+## Approach 
+Main approach I did was microservice architecture. Main reason is kind of pegged into that if doing a AI service. Since you usually don't want the server to do inference and servers for inference are pretty expensive to scale. This decoupling lets me scale any part on demand according to the traffic. Helping cut costs while keeping things simple and not try to fight tech stacks at what they are best at. I like to Vibe code and didn't see any rules against it. So this may be funny, but I just created a technical spec that outlined every engineering decision I want inside the app. From what tech stack to use to how I want it to solve a specific problem. After seeding in the technical document, I went on a walk and let Claude Code do its thing. After it stopped being useful, I made it clean up the project so its readable for a human and created extensive documentation so I can pick up whats going on and start coding. Specifically I created a file to onboard me into the project as if it was to train another employee how to get productive ASAP. I then just filled in TODOs in the code and let Claude Code fill in specific snippets. Since I had extra free time, I also added taking a screenshot feature cause why not? UI/UX is more visual thing than just order of the text. I picked specifically the backend because it would make most users be super scared if they got a screenshot taken on their local host. I filled in the TODOs and just as before let Claude Code write in the code. I make sure it stays in the human readable project design so the vibe code debugging problem doesn't waste my time. That way I can tell it specifically where to fix stuff instead of hoping it just get things right. I am definitely downplaying the coding I did, but thats the simplest way to describe it. I did code a decent amount of parts, but vibe coding helped a lot with the prototype. I did have a API key thing into there, but its not working super well so I just ignore it. Though in production I would put more effort in that part so a hacker don't hog the AI inference. I would keep the microservice architecture.Super scalable. Typescript is very easy to scale and is fast enough for most projects. Both to fix vibe code and to move fast with static type checks to prevent bugs as the project expand. I would also do cloudflare anti-bot to prevent the website from being a easy target against competitors. In addition to that I would make heavy use of caching and using services like BrightData to avoid issues of the web scraping arms race. I also picked Ollama for a specific reason being it is able to wrap around both llama.cpp for consumer devices and vLLM for batch serving in production. Both portable and robust wrapper across both services. I didn't implement batch processing, but that would a start in the microservice before it goes live. Probably the most important thing I would also take a lot more time for a heavily scrutinized code review. As in my opinion it kind of makes you feel like a manager, but you still have the same risks if you let bad code getting shipped the AI help built. I think another given is going in and redoing the CSS and website titles / icons to align with the branding of the service so it doesn't look generic but professional and simple. I would also use a more powerful multi-modal AI in production.
 
 ## Architecture
 
