@@ -15,6 +15,7 @@
 
 import express from 'express';
 import { AIClient } from '../services/aiClient';
+import { ScreenshotService } from '../services/screenshotService';
 import rateLimit from 'express-rate-limit';
 import validator from 'validator';
 
@@ -26,6 +27,7 @@ const router = express.Router();
 interface SecureAnalyzeRequest {
   url: string;
   content: string;
+  includeScreenshot?: boolean;
   metadata?: {
     title?: string;
     description?: string;
@@ -191,9 +193,11 @@ router.post('/analyze/stream',
   validateAnalysisInput,
   async (req: express.Request, res: express.Response) => {
     try {
-      const { url, content, metadata }: SecureAnalyzeRequest = req.body;
+      const { url, content, includeScreenshot, metadata }: SecureAnalyzeRequest = req.body;
 
       console.log(`Starting secure streaming analysis for URL: ${url}`);
+      console.log(`Request body:`, JSON.stringify(req.body, null, 2));
+      console.log(`Screenshot requested: ${includeScreenshot ? 'Yes' : 'No'}`);
 
       // Set up SSE headers
       res.writeHead(200, {
@@ -207,15 +211,60 @@ router.post('/analyze/stream',
       // Send initial status
       res.write(`data: ${JSON.stringify({
         type: 'status', 
-        message: 'Starting secure AI analysis...'
+        message: 'AI model is loading...'
       })}\n\n`);
+
+      let screenshotData = null;
+
+      // Optionally capture screenshot
+      if (includeScreenshot) {
+        try {
+          res.write(`data: ${JSON.stringify({
+            type: 'status', 
+            message: 'Capturing webpage screenshot...'
+          })}\n\n`);
+
+          screenshotData = await ScreenshotService.captureScreenshot(url, {
+            width: 1920,
+            height: 1080,
+            fullPage: true,
+            format: 'jpeg',
+            quality: 80
+          });
+
+          // Log screenshot info with base64 preview
+          console.log(`📸 Screenshot captured for ${url}:`);
+          console.log(`   Size: ${screenshotData.metadata.size} bytes`);
+          console.log(`   Dimensions: ${screenshotData.metadata.width}x${screenshotData.metadata.height}`);
+          console.log(`   Format: ${screenshotData.metadata.format}`);
+          console.log(`   Base64 preview: data:image/${screenshotData.metadata.format};base64,${screenshotData.base64.substring(0, 100)}...`);
+
+          res.write(`data: ${JSON.stringify({
+            type: 'status', 
+            message: 'Screenshot captured, analyzing content...'
+          })}\n\n`);
+
+        } catch (screenshotError) {
+          console.warn('Screenshot capture failed:', screenshotError);
+          res.write(`data: ${JSON.stringify({
+            type: 'status', 
+            message: 'Screenshot capture failed, continuing with text analysis...'
+          })}\n\n`);
+        }
+      }
 
       // Analyze with AI service (streaming)
       const aiClient = new AIClient();
       
       try {
+        // Prepare content for analysis
+        let analysisContent = content;
+        if (screenshotData) {
+          analysisContent += `\n\n[VISUAL ANALYSIS] A screenshot of the webpage has been captured for visual analysis.`;
+        }
+
         // Use streaming analysis with real-time updates
-        const analysis = await aiClient.analyzeContentStream(content, url, (chunk) => {
+        const analysis = await aiClient.analyzeContentStream(analysisContent, url, (chunk) => {
           // Forward streaming chunks to client
           res.write(`data: ${JSON.stringify(chunk)}\n\n`);
         });
@@ -226,10 +275,22 @@ router.post('/analyze/stream',
           data: {
             ...analysis,
             url,
+            screenshot: screenshotData ? {
+              format: screenshotData.metadata.format,
+              size: screenshotData.metadata.size,
+              dimensions: {
+                width: screenshotData.metadata.width,
+                height: screenshotData.metadata.height
+              },
+              capturedAt: screenshotData.metadata.capturedAt,
+              base64: screenshotData.base64,
+              dataUrl: `data:image/${screenshotData.metadata.format};base64,${screenshotData.base64}`
+            } : null,
             metadata: {
               contentLength: content.length,
               analyzedAt: new Date().toISOString(),
               source: 'client-extraction',
+              includeScreenshot: includeScreenshot || false,
               ...metadata
             }
           }
@@ -265,6 +326,7 @@ router.get('/health', async (_req, res: express.Response) => {
   try {
     const aiClient = new AIClient();
     const aiHealthy = await aiClient.healthCheck();
+    const screenshotHealthy = await ScreenshotService.healthCheck();
 
     res.json({
       status: 'healthy',
@@ -273,9 +335,13 @@ router.get('/health', async (_req, res: express.Response) => {
         clientSideExtraction: true,
         serverSideScraping: false,
         rateLimiting: true,
-        inputValidation: true
+        inputValidation: true,
+        optionalScreenshots: true
       },
-      aiService: aiHealthy ? 'connected' : 'disconnected',
+      services: {
+        aiService: aiHealthy ? 'connected' : 'disconnected',
+        screenshotService: screenshotHealthy ? 'connected' : 'disconnected'
+      },
       timestamp: new Date().toISOString()
     });
   } catch (error) {

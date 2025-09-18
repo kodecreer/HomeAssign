@@ -112,7 +112,7 @@ class OllamaBackend(AIBackend):
     
     def get_model_info(self) -> str:
         """Get Ollama model information."""
-        return f"ollama-{self.model_name}"
+        return "AI model"
     
     async def health_check(self) -> bool:
         """Check Ollama health."""

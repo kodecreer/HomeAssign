@@ -11,12 +11,14 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [streamingMessages, setStreamingMessages] = useState<string[]>([]);
   const [error, setError] = useState<string | null>(null);
+  const [aiAnalysisStarted, setAiAnalysisStarted] = useState(false);
 
-  const handleAnalyzeUrl = async (url: string) => {
+  const handleAnalyzeUrl = async (url: string, includeScreenshot?: boolean) => {
     setLoading(true);
     setError(null);
     setAnalysisResult(null);
     setStreamingMessages([]);
+    setAiAnalysisStarted(false);
 
     try {
       const result = await ApiService.analyzeUrlStream(url, (chunk: StreamChunk) => {
@@ -24,13 +26,14 @@ function App() {
         if (chunk.type === 'status' && chunk.message) {
           setStreamingMessages(prev => [...prev, `📡 ${chunk.message}`]);
         } else if (chunk.type === 'scraped' && chunk.content) {
-          setStreamingMessages(prev => [...prev, `📄 Content scraped (${chunk.content.length} characters)`]);
-        } else if (chunk.type === 'partial' && chunk.content) {
+          setStreamingMessages(prev => [...prev, `📄 ${chunk.content}`]);
+        } else if (chunk.type === 'partial' && chunk.content && !aiAnalysisStarted) {
           setStreamingMessages(prev => [...prev, `🤖 AI generating analysis...`]);
+          setAiAnalysisStarted(true);
         } else if (chunk.type === 'metadata' && chunk.metadata) {
           setStreamingMessages(prev => [...prev, `📊 Analysis complete`]);
         }
-      });
+      }, includeScreenshot);
       
       setAnalysisResult(result);
       setStreamingMessages(prev => [...prev, `✅ Analysis completed successfully!`]);

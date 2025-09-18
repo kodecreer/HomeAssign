@@ -121,6 +121,28 @@ const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ result }) => {
         </div>
       )}
 
+      {result.screenshot && (
+        <div className="analysis-section">
+          <h3>📸 Website Screenshot</h3>
+          <div className="screenshot-container">
+            <img 
+              src={result.screenshot.dataUrl} 
+              alt={`Screenshot of ${result.url}`}
+              className="screenshot-image"
+              loading="lazy"
+            />
+            <div className="screenshot-info">
+              <div className="screenshot-metadata">
+                <span><strong>Dimensions:</strong> {result.screenshot.dimensions.width}×{result.screenshot.dimensions.height}</span>
+                <span><strong>Size:</strong> {(result.screenshot.size / 1024).toFixed(1)} KB</span>
+                <span><strong>Format:</strong> {result.screenshot.format.toUpperCase()}</span>
+                <span><strong>Captured:</strong> {new Date(result.screenshot.capturedAt).toLocaleString()}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+
       {result.metadata && (
         <div className="analysis-section">
           <h3>📊 Metadata</h3>
@@ -138,6 +160,11 @@ const AnalysisDisplay: React.FC<AnalysisDisplayProps> = ({ result }) => {
             {result.metadata.linkCount !== undefined && (
               <div className="metadata-item">
                 <strong>Links:</strong> {result.metadata.linkCount}
+              </div>
+            )}
+            {result.metadata.includeScreenshot !== undefined && (
+              <div className="metadata-item">
+                <strong>Screenshot:</strong> {result.metadata.includeScreenshot ? 'Yes' : 'No'}
               </div>
             )}
             {result.metadata.scrapedAt && (

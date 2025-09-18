@@ -210,3 +210,51 @@
 .sentiment-neutral {
   background-color: #6c757d;
 }
+
+/* Screenshot styles */
+.screenshot-container {
+  border: 1px solid #e1e5e9;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f8f9fa;
+}
+
+.screenshot-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  max-height: 600px;
+  object-fit: contain;
+  background: white;
+}
+
+.screenshot-info {
+  padding: 1rem;
+  background: white;
+  border-top: 1px solid #e1e5e9;
+}
+
+.screenshot-metadata {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.85rem;
+  color: #6c757d;
+}
+
+.screenshot-metadata span {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.screenshot-metadata strong {
+  color: #495057;
+}
+
+@media (max-width: 768px) {
+  .screenshot-metadata {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

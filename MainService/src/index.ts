@@ -3,7 +3,7 @@ import cors from 'cors';
 import helmet from 'helmet';
 import dotenv from 'dotenv';
 import path from 'path';
-import analyzerRoutes from './routes/analyzer';
+import analyzerRoutes from './routes/analyzer_secure';
 import scraperRoutes from './routes/scraper';
 
 dotenv.config();

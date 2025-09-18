@@ -12,6 +12,7 @@
   "license": "UNLICENSED",
   "description": "Product Page Reviewer - Main TypeScript Express Service",
   "dependencies": {
+    "@types/puppeteer": "^5.4.7",
     "axios": "^1.6.0",
     "cheerio": "^1.0.0-rc.12",
     "cors": "^2.8.5",
@@ -19,6 +20,7 @@
     "express": "^4.18.2",
     "express-rate-limit": "^8.1.0",
     "helmet": "^7.1.0",
+    "puppeteer": "^24.22.0",
     "validator": "^13.15.15"
   },
   "devDependencies": {

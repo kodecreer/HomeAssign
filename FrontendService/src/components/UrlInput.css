@@ -52,3 +52,35 @@
   background-color: #6c757d;
   cursor: not-allowed;
 }
+
+.options-group {
+  margin-top: 1rem;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: #495057;
+  cursor: pointer;
+  user-select: none;
+  padding: 0.5rem;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+}
+
+.checkbox-label:hover {
+  background-color: #f8f9fa;
+}
+
+.screenshot-checkbox {
+  cursor: pointer;
+}
+
+.screenshot-checkbox:disabled {
+  cursor: not-allowed;
+}

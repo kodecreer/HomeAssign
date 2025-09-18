@@ -77,9 +77,9 @@ echo "           Product Page Reviewer - Service Startup"
 echo "================================================================"
 
 # Check if we're in the right directory
-if [[ ! -d "MainService" ]] || [[ ! -d "AIService" ]] || [[ ! -d "frontend-service" ]]; then
+if [[ ! -d "MainService" ]] || [[ ! -d "AIService" ]] || [[ ! -d "FrontendService" ]]; then
     print_error "Please run this script from the HomeAssign root directory"
-    print_error "Expected structure: HomeAssign/MainService, HomeAssign/AIService, and HomeAssign/frontend-service"
+    print_error "Expected structure: HomeAssign/MainService, HomeAssign/AIService, and HomeAssign/FrontendService"
     exit 1
 fi
 
@@ -104,9 +104,9 @@ fi
 print_success "Prerequisites check passed"
 
 # Check and kill existing processes on required ports
-if check_port 3001; then
-    print_warning "Port 3001 is already in use"
-    kill_port 3001
+if check_port 3000; then
+    print_warning "Port 3000 is already in use"
+    kill_port 3000
 fi
 
 if check_port 5173; then
@@ -125,7 +125,7 @@ print_status "Checking environment configuration..."
 if [[ ! -f "MainService/.env" ]]; then
     print_warning "MainService/.env not found, creating default..."
     cat > MainService/.env << EOL
-PORT=3001
+PORT=3000
 AI_SERVICE_URL=http://localhost:8001
 AI_SERVICE_API_KEY=ai_service_key_qAEq7JkjGV6otGzBiDwVwVvY
 FRONTEND_URL=http://localhost:5173
@@ -179,7 +179,7 @@ cd ..
 
 # Install Frontend dependencies
 print_status "Checking Frontend dependencies..."
-cd frontend-service
+cd FrontendService
 if [[ ! -d "node_modules" ]] || [[ ! -f ".dependencies_installed" ]]; then
     print_status "Installing Frontend dependencies..."
     npm install
@@ -251,7 +251,7 @@ MAIN_SERVICE_PID=$!
 cd ..
 
 # Wait for Main Service to be ready
-if wait_for_service "http://localhost:3001/health" "Main Service"; then
+if wait_for_service "http://localhost:3000/health" "Main Service"; then
     print_success "Main Service started successfully (PID: $MAIN_SERVICE_PID)"
 else
     print_error "Main Service failed to start"
@@ -262,7 +262,7 @@ fi
 
 # Start Frontend Service
 print_status "Starting Frontend Service (React)..."
-cd frontend-service
+cd FrontendService
 nohup npm run dev > ../logs/frontend-service.log 2>&1 &
 FRONTEND_SERVICE_PID=$!
 cd ..
@@ -290,7 +290,7 @@ else
 fi
 
 # Check Main Service health
-MAIN_HEALTH=$(curl -s http://localhost:3001/health | jq -r '.status' 2>/dev/null || echo "unhealthy")
+MAIN_HEALTH=$(curl -s http://localhost:3000/health | jq -r '.status' 2>/dev/null || echo "unhealthy")
 if [[ "$MAIN_HEALTH" == "healthy" ]]; then
     print_success "Main Service health check passed"
 else
@@ -299,7 +299,7 @@ fi
 
 # Test end-to-end functionality
 print_status "Running end-to-end test..."
-TEST_RESPONSE=$(curl -s -X POST http://localhost:3001/scrape \
+TEST_RESPONSE=$(curl -s -X POST http://localhost:3000/scrape \
     -H "Content-Type: application/json" \
     -d '{"url":"https://example.com"}' \
     --max-time 60 2>/dev/null || echo "failed")
@@ -317,7 +317,7 @@ echo "================================================================"
 echo ""
 echo "Service Status:"
 echo "  • AI Service:      http://localhost:8001 (PID: $AI_SERVICE_PID)"
-echo "  • Main Service:    http://localhost:3001 (PID: $MAIN_SERVICE_PID)"
+echo "  • Main Service:    http://localhost:3000 (PID: $MAIN_SERVICE_PID)"
 echo "  • Frontend:        http://localhost:5173 (PID: $FRONTEND_SERVICE_PID)"
 echo ""
 echo "Log Files:"

@@ -5,14 +5,53 @@ const API_BASE_URL = 'http://localhost:3000/api';
 export class ApiService {
   static async analyzeUrlStream(
     url: string,
-    onChunk: (chunk: StreamChunk) => void
+    onChunk: (chunk: StreamChunk) => void,
+    includeScreenshot?: boolean
   ): Promise<AnalysisResult> {
+    // First, scrape content using server-side scraper
+    onChunk({ type: 'status', message: 'Scraping webpage content...' });
+    
+    let content: string;
+    try {
+      const scrapeResponse = await fetch(`http://localhost:3000/scrape`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ url }),
+      });
+      
+      if (!scrapeResponse.ok) {
+        throw new Error(`Failed to scrape URL: ${scrapeResponse.status}`);
+      }
+      
+      const scrapedData = await scrapeResponse.json();
+      content = scrapedData.content;
+      
+      if (!content || content.length < 10) {
+        throw new Error('Unable to extract meaningful content from webpage');
+      }
+      
+      onChunk({ 
+        type: 'scraped', 
+        content: `Content scraped (${content.length} characters)` 
+      });
+      
+    } catch (error) {
+      throw new Error(`Content scraping failed: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+
+    // Send to backend for analysis
     const response = await fetch(`${API_BASE_URL}/analyze/stream`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ url }),
+      body: JSON.stringify({ 
+        url, 
+        content,
+        includeScreenshot: includeScreenshot || false
+      }),
     });
 
     if (!response.ok) {
@@ -45,57 +84,19 @@ export class ApiService {
               onChunk(chunk);
 
               // Handle complete chunk with final result
-              if (chunk.type === 'complete' && chunk.content) {
+              if (chunk.type === 'complete' && chunk.data) {
                 try {
-                  // Remove thinking tags from content
-                  let cleanContent = chunk.content;
-                  if (cleanContent.includes('<think>') && cleanContent.includes('</think>')) {
-                    cleanContent = cleanContent.split('</think>').pop()?.trim() || cleanContent;
-                  }
+                  // Extract the complete data from the backend response
+                  const data = (chunk as any).data;
                   
-                  // Parse the final analysis result
-                  const analysisLines = cleanContent.split('\n');
-                  const strengths: string[] = [];
-                  const weaknesses: string[] = [];
-                  const recommendations: string[] = [];
-                  
-                  let currentSection = '';
-                  
-                  for (const line of analysisLines) {
-                    const trimmedLine = line.trim();
-                    
-                    if (trimmedLine.toLowerCase().includes('strength')) {
-                      currentSection = 'strengths';
-                      continue;
-                    } else if (trimmedLine.toLowerCase().includes('weakness')) {
-                      currentSection = 'weaknesses';
-                      continue;
-                    } else if (trimmedLine.toLowerCase().includes('recommendation')) {
-                      currentSection = 'recommendations';
-                      continue;
-                    }
-                    
-                    // Parse list items
-                    if (trimmedLine.startsWith('-') || trimmedLine.match(/^\d+\./)) {
-                      const item = trimmedLine.replace(/^[-\d\.]\s*/, '').trim();
-                      if (item) {
-                        if (currentSection === 'strengths') {
-                          strengths.push(item);
-                        } else if (currentSection === 'weaknesses') {
-                          weaknesses.push(item);
-                        } else if (currentSection === 'recommendations') {
-                          recommendations.push(item);
-                        }
-                      }
-                    }
-                  }
-
                   finalResult = {
-                    analysis: cleanContent,
-                    url,
-                    strengths,
-                    weaknesses,
-                    recommendations
+                    analysis: data.analysis || '',
+                    url: data.url || url,
+                    strengths: data.strengths || [],
+                    weaknesses: data.weaknesses || [],
+                    recommendations: data.recommendations || [],
+                    screenshot: data.screenshot || null,
+                    metadata: data.metadata || {}
                   };
                 } catch (parseError) {
                   console.warn('Failed to parse analysis content:', parseError);
