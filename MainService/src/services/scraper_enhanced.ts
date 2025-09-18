@@ -13,7 +13,7 @@
  * - Content sanitization and validation
  * 
  * @version 2.0.0
- * @author Claude Code Assistant
+ * @author Kode Creer <kode.creer@gmail.com>
  */
 
 import axios, { AxiosResponse, AxiosRequestConfig } from 'axios';

@@ -10,7 +10,7 @@
  * - Comprehensive error handling
  * 
  * @version 2.0.0
- * @author Claude Code Assistant
+ * @author Kode Creer <kode.creer@gmail.com>
  */
 
 import express from 'express';
@@ -53,7 +53,7 @@ const analyzeRateLimit = rateLimit({
  * Input validation middleware
  */
 const validateAnalysisInput = (req: express.Request, res: express.Response, next: express.NextFunction) => {
-  const { url, content, metadata }: SecureAnalyzeRequest = req.body;
+  const { url, content }: SecureAnalyzeRequest = req.body;
 
   // Validate required fields
   if (!url || !content) {
@@ -214,16 +214,13 @@ router.post('/analyze/stream',
       const aiClient = new AIClient();
       
       try {
-        // For now, use regular analysis (streaming implementation would require AI service updates)
-        const analysis = await aiClient.analyzeContent(content, url);
+        // Use streaming analysis with real-time updates
+        const analysis = await aiClient.analyzeContentStream(content, url, (chunk) => {
+          // Forward streaming chunks to client
+          res.write(`data: ${JSON.stringify(chunk)}\n\n`);
+        });
 
-        // Send progress updates
-        res.write(`data: ${JSON.stringify({
-          type: 'status',
-          message: 'Analysis complete, formatting results...'
-        })}\n\n`);
-
-        // Send final results
+        // Send final results with metadata
         res.write(`data: ${JSON.stringify({
           type: 'complete',
           data: {
@@ -264,7 +261,7 @@ router.post('/analyze/stream',
  * GET /api/health
  * Health check endpoint
  */
-router.get('/health', async (req: express.Request, res: express.Response) => {
+router.get('/health', async (_req, res: express.Response) => {
   try {
     const aiClient = new AIClient();
     const aiHealthy = await aiClient.healthCheck();
