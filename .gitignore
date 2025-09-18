@@ -2,3 +2,6 @@
 venv
 *.py*
 *cache*
+*.log
+.claude
+*.env
