@@ -96,3 +96,63 @@ Okay, I need to analyze the product page for UI/UX conversion optimization. The 
 
 First, the stren...
 2025-09-17 21:41:00,451 - ai_service.backends - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 23:09:03,837 - ai_service.config - INFO - Starting AI Service...
+2025-09-17 23:09:03,838 - ai_service.config - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 23:09:04,588 - ai_service.backends - INFO - Ollama backend initialized with model: gemma3:4b
+2025-09-17 23:09:04,588 - ai_service.config - INFO - AI Service started successfully
+2025-09-17 23:09:04,947 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:09:04,948 - ai_service.backends - ERROR - Ollama health check failed: model 'gemma3:4b' not found
+2025-09-17 23:09:32,465 - ai_service.config - INFO - Shutting down AI Service...
+2025-09-17 23:09:42,045 - ai_service.config - INFO - Starting AI Service...
+2025-09-17 23:09:42,046 - ai_service.config - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 23:09:42,367 - ai_service.backends - INFO - Ollama backend initialized with model: gemma3:4b
+2025-09-17 23:09:42,367 - ai_service.config - INFO - AI Service started successfully
+2025-09-17 23:09:43,688 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:09:43,689 - ai_service.backends - ERROR - Ollama health check failed: model 'gemma3:4b' not found
+2025-09-17 23:10:45,078 - ai_service.config - INFO - Shutting down AI Service...
+2025-09-17 23:11:15,028 - ai_service.config - INFO - Starting AI Service...
+2025-09-17 23:11:15,028 - ai_service.config - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 23:11:15,318 - ai_service.backends - INFO - Ollama backend initialized with model: gemma3:4b
+2025-09-17 23:11:15,319 - ai_service.config - INFO - AI Service started successfully
+2025-09-17 23:11:15,392 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:11:15,393 - ai_service.backends - ERROR - Ollama health check failed: model 'gemma3:4b' not found
+2025-09-17 23:11:21,670 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:11:21,673 - ai_service.backends - ERROR - Ollama health check failed: model 'gemma3:4b' not found
+2025-09-17 23:45:13,066 - ai_service.config - INFO - Starting AI Service...
+2025-09-17 23:45:13,066 - ai_service.config - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 23:45:15,094 - ai_service.backends - INFO - Ollama backend initialized with model: gemma3:4b
+2025-09-17 23:45:15,095 - ai_service.config - INFO - AI Service started successfully
+2025-09-17 23:45:15,442 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:45:15,442 - ai_service.backends - ERROR - Ollama health check failed: model 'gemma3:4b' not found
+2025-09-17 23:45:21,841 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:45:21,842 - ai_service.backends - ERROR - Ollama health check failed: model 'gemma3:4b' not found
+2025-09-17 23:45:49,315 - ai_service.backends - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 23:45:49,329 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:45:49,329 - ai_service.backends - ERROR - Ollama streaming failed: model 'gemma3:4b' not found
+2025-09-17 23:45:49,344 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:45:49,349 - ai_service.backends - ERROR - Ollama generation failed: model 'gemma3:4b' not found
+2025-09-17 23:45:49,350 - ai_service.services - ERROR - Streaming analysis failed: model 'gemma3:4b' not found
+2025-09-17 23:46:00,596 - ai_service.backends - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 23:46:00,637 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:46:00,638 - ai_service.backends - ERROR - Ollama streaming failed: model 'gemma3:4b' not found
+2025-09-17 23:46:00,648 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 404 Not Found"
+2025-09-17 23:46:00,652 - ai_service.backends - ERROR - Ollama generation failed: model 'gemma3:4b' not found
+2025-09-17 23:46:00,653 - ai_service.services - ERROR - Streaming analysis failed: model 'gemma3:4b' not found
+2025-09-17 23:46:08,673 - ai_service.config - INFO - Shutting down AI Service...
+2025-09-17 23:49:07,570 - ai_service.config - INFO - Starting AI Service...
+2025-09-17 23:49:07,570 - ai_service.config - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 23:49:07,881 - ai_service.backends - INFO - Ollama backend initialized with model: gemma3:4b
+2025-09-17 23:49:07,881 - ai_service.config - INFO - AI Service started successfully
+2025-09-17 23:49:33,676 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 23:49:46,557 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 23:50:38,057 - ai_service.backends - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 23:52:18,189 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 23:52:54,998 - ai_service.backends - INFO - Full response length: 422
+2025-09-17 23:52:55,001 - ai_service.backends - INFO - Full response preview: Strengths:
+- Detailed flavor descriptions.
+- Multiple box size options.
+- Clear shelf life information.
+
+Weaknesses:
+- Ingredient list is overly long and complex.
+- Lack of high-quality product imager...

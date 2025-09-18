@@ -22,7 +22,15 @@ I also picked Ollama for a specific reason being it is able to wrap around both 
 Probably the most important thing I would also take a lot more time for a heavily scrutinized code review. As in my opinion it kind of makes you feel like a manager, but you still have the same risks if you let bad code getting shipped the AI help built. I think another given is going in and redoing the CSS and website titles / icons to align with the branding of the service so it doesn't look generic but proffesional and simple.
 
 I would also use a more powerful multi-modal AI in production. 
+
+Main challenges was the Claude time out limits if I didn't convert that microservice from vibe slop to human readable code. Otherwise it was pretty smooth. 
+
+Container orchestration is another big one. I provided docker files for each service and it would make sense to just let the cloud provider handle scalding each envrionemnt so the team I would work with can focus on building. 
+
+
 # AI Service
+
+To run this, just run the start and stop services script. 
 
 A high-performance FastAPI service that provides AI-powered analysis of web pages for conversion rate optimization.
 

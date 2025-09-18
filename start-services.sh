@@ -175,6 +175,17 @@ if [[ ! -d "node_modules" ]] || [[ ! -f ".dependencies_installed" ]]; then
 else
     print_status "Node.js dependencies already installed"
 fi
+
+# Build Main Service
+print_status "Building Main Service..."
+if [[ ! -d "dist" ]] || [[ ! -f ".build_complete" ]]; then
+    print_status "Building TypeScript to JavaScript..."
+    npm run build
+    touch .build_complete
+    print_success "Main Service built successfully"
+else
+    print_status "Main Service already built"
+fi
 cd ..
 
 # Install Frontend dependencies
@@ -204,18 +215,18 @@ if [[ "$OSTYPE" != "linux-gnu"* ]]; then
             sleep 5
         fi
         
-        # Check if deepseek model is available
-        if ! ollama list | grep -q "deepseek-r1:1.5b"; then
-            print_warning "deepseek-r1:1.5b model not found, pulling..."
-            ollama pull deepseek-r1:1.5b
-            print_success "deepseek-r1:1.5b model installed"
+        # Check if gemma3 model is available
+        if ! ollama list | grep -q "gemma3:4b"; then
+            print_warning "gemma3:4b model not found, pulling..."
+            ollama pull gemma3:4b
+            print_success "gemma3:4b model installed"
         else
-            print_success "deepseek-r1:1.5b model already available"
+            print_success "gemma3:4b model already available"
         fi
     else
         print_warning "Ollama not found. Please install Ollama for optimal performance."
         print_warning "Visit: https://ollama.com/download"
-        print_warning "Then run: ollama pull deepseek-r1:1.5b"
+        print_warning "Then run: ollama pull gemma3:4b"
     fi
 else
     print_status "Linux system detected - VLLM will be used for production"

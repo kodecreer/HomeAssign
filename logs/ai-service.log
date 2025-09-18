@@ -1,9 +1,24 @@
-INFO:__main__:Setting up Ollama fallback...
-INFO:httpx:HTTP Request: GET http://127.0.0.1:11434/api/tags "HTTP/1.1 200 OK"
-ERROR:__main__:Failed to setup model: 'dict' object has no attribute 'models'
-ERROR:__main__:Failed to setup Ollama fallback: 'dict' object has no attribute 'models'
-Traceback (most recent call last):
-  File "/Users/kodecreer/Documents/HomeAssign/AIService/main.py", line 60, in <module>
-    available_models = [model.model for model in models.models]
-                                                 ^^^^^^^^^^^^^
-AttributeError: 'dict' object has no attribute 'models'
+INFO:     Started server process [49204]
+INFO:     Waiting for application startup.
+2025-09-17 23:49:07,570 - ai_service.config - INFO - Starting AI Service...
+2025-09-17 23:49:07,570 - ai_service.config - INFO - Configuration loaded - Host: 0.0.0.0, Port: 8001
+2025-09-17 23:49:07,881 - ai_service.backends - INFO - Ollama backend initialized with model: gemma3:4b
+2025-09-17 23:49:07,881 - ai_service.config - INFO - AI Service started successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8001 (Press CTRL+C to quit)
+2025-09-17 23:49:33,676 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:56685 - "GET /health HTTP/1.1" 200 OK
+2025-09-17 23:49:46,557 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+INFO:     127.0.0.1:56752 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56831 - "POST /analyze/stream HTTP/1.1" 200 OK
+2025-09-17 23:50:38,057 - ai_service.backends - INFO - Starting streaming generation with prompt: Analyze this product page for UI/UX conversion optimization. Provide only the final analysis without...
+2025-09-17 23:52:18,189 - httpx - INFO - HTTP Request: POST http://127.0.0.1:11434/api/generate "HTTP/1.1 200 OK"
+2025-09-17 23:52:54,998 - ai_service.backends - INFO - Full response length: 422
+2025-09-17 23:52:55,001 - ai_service.backends - INFO - Full response preview: Strengths:
+- Detailed flavor descriptions.
+- Multiple box size options.
+- Clear shelf life information.
+
+Weaknesses:
+- Ingredient list is overly long and complex.
+- Lack of high-quality product imager...
