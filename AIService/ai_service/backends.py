@@ -47,7 +47,7 @@ class OllamaBackend(AIBackend):
             import ollama
             self.ollama = ollama
             self.client = ollama.Client()
-            self.model_name = 'deepseek-r1:1.5b'
+            self.model_name = 'gemma3:4b' #Deep seek isn't multimodal. I want to try PDFs to see if that works#deepseek-r1:1.5b'
             logger.info(f"Ollama backend initialized with model: {self.model_name}")
         except ImportError as e:
             logger.error(f"Ollama not available: {e}")
